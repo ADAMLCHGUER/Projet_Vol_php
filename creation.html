@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <link rel="stylesheet" href="creation.css">
+    <form method="POST" id="form_createacc" action="creation.php"  onsubmit="return validateForm()" >
+        <fieldset>
+            <legend>Create Account</legend>
+            <table>
+                <tr>
+                    <!--<td>CIN : </td>-->
+                    <td><input type="text" name="id" id="id" placeholder="Enter CIN" hidden></td>
+                </tr>
+                <tr>
+                    <td>Nom  : </td>
+                    <td><input type="text" name="nom" id="nom"placeholder="Enter le nom"></td>
+                </tr>
+                <tr>
+                    <td>Prenom  : </td>
+                    <td><input type="text" name="prenom" id="prenom" placeholder="Enter le prenom"></td>
+                </tr>
+                <tr>
+                    <td>Email : </td>
+                    <td><input type="text" name="email" id="email"placeholder="Enter Email"></td>
+                </tr>
+                <tr>
+                    <td>Password : </td>
+                    <td><input type="password"  name="mdp" id="mdp" placeholder="Enter Password"></td>
+                </tr>
+                <tr>
+                    <td>Date naissance : </td>
+                    <td><input type="date" name="date_naissance" id="date_naissance"></td>
+                </tr>
+            </table>
+            <button type="submit" onsubmit="return diffDate()">ENREGISTRER</button>
+        </fieldset>
+        <script type="application/javascript" src="validation.js"></script>
+    </form>
+    
+</body>
+</html>
