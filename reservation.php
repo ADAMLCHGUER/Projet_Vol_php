@@ -9,7 +9,38 @@
 <body>
     <link rel="stylesheet" href="reservation.css">
     <form method="post" action="vol.php">
-    <input type="hidden" name="idclient" value="<?php echo htmlspecialchars($idclient); ?>">
+    <!--<input type="hidden" name="idclient" value=" //echo htmlspecialchars($idclient); ?>">-->
+    <?php
+         
+         include("cnx.php");
+         session_start();
+ 
+         
+
+         if (!isset($_SESSION["idclient"])) {
+            echo "Identifiant client non trouvé. Veuillez vous connecter.";
+            exit();
+        }
+        
+        $idclient = $_SESSION["idclient"];
+ 
+         
+         $sql = "SELECT nom, prenom FROM client WHERE idclient = '$idclient'";
+         $result = $cnx->query($sql);
+ 
+         if ($result->num_rows > 0) {
+             $row = $result->fetch_assoc();
+             $_SESSION["nom"] = $row["nom"];
+             $_SESSION["prenom"] = $row["prenom"];
+             echo "<p>Bonjour : " . htmlspecialchars($row["nom"]) . " " . htmlspecialchars($row["prenom"]) . "</p>";
+         } else {
+             echo "<p>Client non trouvé.</p>";
+             exit;
+         }
+ 
+         $result->close();
+        //session_destroy();
+    ?>
     <h1>Liste des Vols</h1>
     <table>
         <thead>
@@ -23,7 +54,15 @@
         </thead>
         <tbody>
             <?php
-            include "cnx.php"; 
+            //session_start(); 
+            include "cnx.php";
+            
+            if (!isset($_SESSION["idclient"])) {
+                
+                header("Location: login.php");
+                exit;
+            }
+            $idclient = $_SESSION["idclient"];
             $req = "SELECT idvol, nomvol, villdep, villariv, datevol FROM vol"; 
             $res = $cnx->query($req); 
 
@@ -40,6 +79,7 @@
             } else {
                 echo "<tr><td colspan='5'>Aucun vol trouvé</td></tr>";
             }
+        //}
             ?>
         </tbody>
     </table>

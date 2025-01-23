@@ -16,7 +16,8 @@ th, td {
     text-align: left;
 }
 th {
-    background-color: #f4f4f4;
+    background-color: #007BFF;
+    
     font-weight: bold;
 }
 tr:nth-child(even) {

@@ -11,15 +11,16 @@
 
     <?php
     include "cnx.php";
+    session_start();
 
-    // Vérifiez si des vols ont été sélectionnés
+    
     if (isset($_POST['vols']) && is_array($_POST['vols']) && count($_POST['vols']) > 0) {
-        $vols = $_POST['vols']; // Tableau contenant les IDs des vols sélectionnés
+        $vols = $_POST['vols']; 
 
-        // Convertir les IDs en une chaîne pour la requête SQL
+        
         $ids = implode(',', array_map('intval', $vols));
 
-        // Requête pour récupérer les informations des vols sélectionnés
+        
         $req = "SELECT nomvol, villdep, villariv, datevol FROM vol WHERE idvol IN ($ids)";
         $res = $cnx->query($req);
 
@@ -75,25 +76,26 @@
     </form>
 
     <?php
-    // Vérification si le formulaire a été soumis
+    
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['siege'])) {
-        // Récupération des valeurs du formulaire
-        $siege = htmlspecialchars($_POST['siege']);  // Siège sélectionné
-        $status = 'En cours';  // Le statut est "En cours"
-        $date_confirmation = date("Y-m-d");  // La date de confirmation est la date actuelle
+        
+        $siege = htmlspecialchars($_POST['siege']);  
+        $status = 'En cours';  
+        $date_confirmation = date("Y-m-d");  
 
         // Récupération de l'ID du client (ici, fixé à 1 pour l'exemple)
-        $client_id = 1;
+        $idclient = $_SESSION["idclient"];
+        //$client_id = 1;
 
-        // Récupération des vols sélectionnés
+        
         if (isset($_POST['vols']) && is_array($_POST['vols']) && count($_POST['vols']) > 0) {
-            $vols = $_POST['vols']; // Tableau contenant les IDs des vols sélectionnés
+            $vols = $_POST['vols']; 
 
-            // Insertion des réservations dans la table reservation pour chaque vol sélectionné
+            
             foreach ($vols as $idvol) {
-                // Préparer la requête pour insérer la réservation
+                
                 $req = "INSERT INTO reservation (siege, status, datereservation, idclient, idvol) 
-                        VALUES ('$siege', '$status', '$date_confirmation', '$client_id', '$idvol')";
+                        VALUES ('$siege', '$status', '$date_confirmation', '$idclient', '$idvol')";
                 
                 if ($cnx->query($req) === TRUE) {
                     echo "<p>Réservation réussie pour le vol $idvol.</p>";

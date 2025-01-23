@@ -27,20 +27,25 @@
         </fieldset>
     </form>
     <?php
+    session_start();//session
     include("cnx.php");
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $Email = $_POST['email'];
-    $mdp = $_POST['mdp'];
-    $sql = "select * from client WHERE email = '$Email' AND mdp = '$mdp' ";
-    $result=$cnx->query($sql);
-    if ($result->num_rows > 0) {
-        header("Location: reservation.php");
-        exit;
-    } else {
-        echo "<p style='color:red;'>Email ou mot de passe incorrect.</p>";
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $Email = $_POST['email'];
+        $mdp = $_POST['mdp'];
+        $sql = "select idclient from client WHERE email = '$Email' AND mdp = '$mdp' ";
+        $result=$cnx->query($sql);
+        if ($result->num_rows > 0) {
+            //*** 
+            $row = $result->fetch_assoc();
+            $_SESSION["idclient"] = $row["idclient"];
+            //*** 
+            header("Location: reservation.php");
+            exit;
+        } else {
+            echo "<p style='color:red;'>Email ou mot de passe incorrect.</p>";
     }
 }
-$cnx->close();
+    $cnx->close();
     ?>
 </body>
 </html>
