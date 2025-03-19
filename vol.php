@@ -12,15 +12,17 @@
     <?php
     include "cnx.php";
     session_start();
+    /*$idc = $_POST['idvol']
+    $idv = array();
+    foreach($_POST['vols'] as $val){
+        $idv[] = $val;
+    }
+    $nbv = count($idv);*/
 
     
     if (isset($_POST['vols']) && is_array($_POST['vols']) && count($_POST['vols']) > 0) {
         $vols = $_POST['vols']; 
-
-        
         $ids = implode(',', array_map('intval', $vols));
-
-        
         $req = "SELECT nomvol, villdep, villariv, datevol FROM vol WHERE idvol IN ($ids)";
         $res = $cnx->query($req);
 
@@ -83,9 +85,9 @@
         $status = 'En cours';  
         $date_confirmation = date("Y-m-d");  
 
-        // Récupération de l'ID du client (ici, fixé à 1 pour l'exemple)
+        
         $idclient = $_SESSION["idclient"];
-        //$client_id = 1;
+        
 
         
         if (isset($_POST['vols']) && is_array($_POST['vols']) && count($_POST['vols']) > 0) {
@@ -107,6 +109,7 @@
             echo "<p>Aucun vol sélectionné.</p>";
         }
     }
+
     ?>
 </body>
 </html>

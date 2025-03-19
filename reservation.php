@@ -73,17 +73,18 @@
                     echo "<td>" . htmlspecialchars($row["villdep"]) . "</td>";
                     echo "<td>" . htmlspecialchars($row["villariv"]) . "</td>";
                     echo "<td>" . htmlspecialchars($row["datevol"]) . "</td>";
-                    echo "<td class='checkbox-column'><input type='checkbox' name='vols[]' value='" . htmlspecialchars($row['idvol']) . "'></td>";
+                    echo "<td class='checkbox-column'><input type='checkbox' name='vols[]' value='" . htmlspecialchars( $row['idvol']) . "'></td>";
                     echo "</tr>";
                 }
             } else {
                 echo "<tr><td colspan='5'>Aucun vol trouvé</td></tr>";
             }
+            
         //}
             ?>
         </tbody>
     </table>
-
+            
     <button type="submit" >Réserver les vols sélectionnés</button>
     </form>
 </body>

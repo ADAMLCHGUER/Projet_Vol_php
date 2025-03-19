@@ -8,7 +8,7 @@
 <body>
 <link rel="stylesheet" href="login.css">
 
-<form method="POST" id="login_form" >
+<form method="POST" >
         <fieldset>
             <legend>Login</legend>
             <table>
@@ -29,7 +29,7 @@
     <?php
     session_start();//session
     include("cnx.php");
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $Email = $_POST['email'];
         $mdp = $_POST['mdp'];
         $sql = "select idclient from client WHERE email = '$Email' AND mdp = '$mdp' ";
